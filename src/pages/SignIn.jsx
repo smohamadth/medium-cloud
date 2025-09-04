@@ -26,7 +26,6 @@ export default function SignIn() {
       dispatch(signInStart());
       const res = await fetch(`${import.meta.env.VITE_AUTH_SERVICE}/signin`, {
         method: 'POST',
-        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });

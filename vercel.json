@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/auth/:path*",
-      "destination": "https://medium-cloud-auth.liara.run/:path*"
-    }
-  ]
-}
