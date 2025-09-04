@@ -23,9 +23,14 @@ export default function DashboardComp() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        const token = localStorage.getItem("token");
         const res = await fetch(
           `${import.meta.env.VITE_USER_SERVICE}/getusers?limit=5`,
-          { credentials: "include" }
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         const data = await res.json();
         if (res.ok) {
@@ -54,9 +59,14 @@ export default function DashboardComp() {
     };
     const fetchComments = async () => {
       try {
+        const token = localStorage.getItem("token");
         const res = await fetch(
           `${import.meta.env.VITE_COMMENT_SERVICE}/getcomments?limit=5`,
-          { credentials: "include" }
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         const data = await res.json();
         if (res.ok) {
