@@ -1,0 +1,48 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+export default function PostCard({ post }) {
+  const [writer, setWriter] = useState()
+  const [profilePicture, setProfilePicture] = useState()
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_USER_SERVICE}/${post.userId}`);
+        const data = await res.json();
+        setWriter(data.username)
+        setProfilePicture(data.profilePicture)
+        setError(false);
+        setLoading(false);
+      } catch (error) {
+        setError(true);
+        setLoading(false);
+      }
+    };
+    fetchUser()
+  });
+  return (
+    <div className="group relative w-full border border-teal-500 hover:border-2 h-[330px] overflow-hidden rounded-lg sm:w-[360px] transition-all mx-auto">
+      <Link to={`/post/${post.slug}`}>
+        <img
+          src={post.image}
+          alt="post cover"
+          className="h-[160px] w-full  object-cover group-hover:h-[100px] transition-all duration-300 z-20"
+        />
+      </Link>
+      <div className="p-3 flex flex-col gap-2">
+        <p className="text-lg font-semibold line-clamp-2">{post.title}</p>
+        <div className="flex max-h-10">
+          <img className="h-8 w-8 rounded-xl text-lg" src={profilePicture}></img>
+          <span className="text-sm mx-2">{writer}</span>
+        </div>
+        
+        <Link
+          to={`/post/${post.slug}`}
+          className="z-10 group-hover:bottom-0 absolute bottom-[-200px] left-0 right-0 border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white transition-all duration-300 text-center py-2 rounded-md !rounded-tl-none m-2"
+        >
+          Read article
+        </Link>
+      </div>
+    </div>
+  );
+}
