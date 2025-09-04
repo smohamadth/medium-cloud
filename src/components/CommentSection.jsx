@@ -19,6 +19,7 @@ export default function CommentSection({ postId }) {
       return;
     }
     try {
+      const token = localStorage.getItem("token")
       const res = await fetch(`${import.meta.env.VITE_COMMENT_SERVICE}/create`, {
         method: 'POST',
         headers: {
@@ -64,6 +65,7 @@ export default function CommentSection({ postId }) {
         navigate('/sign-in');
         return;
       }
+      const token = localStorage.getItem("token")
       const res = await fetch(`${import.meta.env.VITE_COMMENT_SERVICE}/likeComment/${commentId}`, {
         method: 'PUT',
         credentials: 'include',
@@ -105,6 +107,7 @@ export default function CommentSection({ postId }) {
         navigate('/sign-in');
         return;
       }
+      const token = localStorage.getItem("token")
       const res = await fetch(`${import.meta.env.VITE_COMMENT_SERVICE}/deleteComment/${commentId}`, {
         headers: {
           Authorization: `Bearer ${token}`

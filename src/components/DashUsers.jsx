@@ -13,6 +13,7 @@ export default function DashUsers() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        const token = localStorage.getItem("token")
         const res = await fetch(
           `${import.meta.env.VITE_USER_SERVICE}/getusers`,
           {
@@ -40,6 +41,7 @@ export default function DashUsers() {
   const handleShowMore = async () => {
     const startIndex = users.length;
     try {
+      const token = localStorage.getItem("token")
       const res = await fetch(
         `${
           import.meta.env.VITE_USER_SERVICE
@@ -65,6 +67,7 @@ export default function DashUsers() {
 
   const handleDeleteUser = async () => {
     try {
+      const token = localStorage.getItem("token")
       const res = await fetch(
         `${import.meta.env.VITE_USER_SERVICE}/delete/${userIdToDelete}`,
         {

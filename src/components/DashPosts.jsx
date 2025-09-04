@@ -35,6 +35,7 @@ export default function DashPosts() {
   const handleShowMore = async () => {
     const startIndex = posts.length;
     try {
+      
       const res = await fetch(
         `${import.meta.env.VITE_POST_SERVICE}/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
       );
@@ -53,6 +54,7 @@ export default function DashPosts() {
   const handleDeletePost = async () => {
     setShowModal(false);
     try {
+      const token = localStorage.getItem("token")
       const res = await fetch(
         `${import.meta.env.VITE_POST_SERVICE}/deletepost/${postIdToDelete}/${currentUser._id}`,
         {
@@ -75,6 +77,7 @@ export default function DashPosts() {
 
   const toggleStaffPick = async (postId) => {
     try {
+      const token = localStorage.getItem("token")
       const res = await fetch(`${import.meta.env.VITE_POST_SERVICE}/toggleStaffPick/${postId}`, {
         method: "PUT",
         headers: {

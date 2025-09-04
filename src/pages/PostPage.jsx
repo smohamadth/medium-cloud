@@ -84,6 +84,7 @@ export default function PostPage() {
         navigate("/sign-in");
         return;
       }
+      const token = localStorage.getItem("token")
       const res = await fetch(
         `${import.meta.env.VITE_POST_SERVICE}/likePost/${postId}`,
         {
@@ -111,6 +112,7 @@ export default function PostPage() {
   const handleDeletePost = async () => {
     setShowModal(false);
     try {
+      const token = localStorage.getItem("token")
       const res = await fetch(
         `/api/post/deletepost/${post._id}/${currentUser._id}`,
         {

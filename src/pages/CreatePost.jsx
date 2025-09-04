@@ -75,6 +75,7 @@ export default function CreatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem("token")
       const res = await fetch(`${import.meta.env.VITE_POST_SERVICE}/create`, {
         method: "POST",
         headers: {

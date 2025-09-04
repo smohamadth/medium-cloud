@@ -114,6 +114,7 @@ export default function DashProfile() {
     }
     try {
       dispatch(updateStart());
+      const token = localStorage.getItem("token")
       const res = await fetch(
         `${import.meta.env.VITE_USER_SERVICE}/update/${currentUser._id}`,
         {
@@ -143,6 +144,7 @@ export default function DashProfile() {
     setShowModal(false);
     try {
       dispatch(deleteUserStart());
+      const token = localStorage.getItem("token")
       const res = await fetch(
         `${import.meta.env.VITE_USER_SERVICE}/delete/${currentUser._id}`,
         {
