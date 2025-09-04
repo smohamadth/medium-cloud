@@ -13,9 +13,13 @@ export default function DashComments() {
   useEffect(() => {
     const fetchComments = async () => {
       try {
+        const token = localStorage.getItem('token');
         const res = await fetch(`${import.meta.env.VITE_COMMENT_SERVICE}/getcomments`,
           {
-            credentials: 'include'
+            credentials: 'include',
+            headers:{
+              Authorization: `Bearer ${token}`
+            }
           }
         );
         const data = await res.json();
