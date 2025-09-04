@@ -57,7 +57,9 @@ export default function DashPosts() {
         `${import.meta.env.VITE_POST_SERVICE}/deletepost/${postIdToDelete}/${currentUser._id}`,
         {
           method: "DELETE",
-          credentials: 'include'
+          headers: {
+          Authorization: `Bearer ${token}`
+        }
         }
       );
       const data = await res.json();
@@ -75,7 +77,9 @@ export default function DashPosts() {
     try {
       const res = await fetch(`${import.meta.env.VITE_POST_SERVICE}/toggleStaffPick/${postId}`, {
         method: "PUT",
-        credentials: 'include'
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       const data = await res.json();
       if (!res.ok) {

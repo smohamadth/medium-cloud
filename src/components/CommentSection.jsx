@@ -23,13 +23,14 @@ export default function CommentSection({ postId }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
         },
         body: JSON.stringify({
           content: comment,
           postId,
           userId: currentUser._id,
         }),
-        credentials: 'include'
+        
       });
       const data = await res.json();
       if (res.ok) {
@@ -65,7 +66,10 @@ export default function CommentSection({ postId }) {
       }
       const res = await fetch(`${import.meta.env.VITE_COMMENT_SERVICE}/likeComment/${commentId}`, {
         method: 'PUT',
-        credentials: 'include'
+        credentials: 'include',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       if (res.ok) {
         const data = await res.json();
@@ -102,6 +106,9 @@ export default function CommentSection({ postId }) {
         return;
       }
       const res = await fetch(`${import.meta.env.VITE_COMMENT_SERVICE}/deleteComment/${commentId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
         method: 'DELETE',
         credentials: 'include'
       });

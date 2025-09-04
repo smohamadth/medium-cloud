@@ -15,14 +15,16 @@ export default function PostPage() {
   const [post, setPost] = useState(null);
   const [recentPosts, setRecentPosts] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
         setLoading(true);
 
-        const res = await fetch(`${import.meta.env.VITE_POST_SERVICE}/getposts?slug=${postSlug}`);
+        const res = await fetch(
+          `${import.meta.env.VITE_POST_SERVICE}/getposts?slug=${postSlug}`
+        );
         const data = await res.json();
 
         const post_data = data.posts[0];
@@ -34,7 +36,9 @@ export default function PostPage() {
         }
         if (res.ok) {
           try {
-            const res = await fetch(`${import.meta.env.VITE_USER_SERVICE}/${post_data.userId}`);
+            const res = await fetch(
+              `${import.meta.env.VITE_USER_SERVICE}/${post_data.userId}`
+            );
             const data = await res.json();
             setPost({
               ...post_data,
@@ -60,7 +64,9 @@ export default function PostPage() {
   useEffect(() => {
     try {
       const fetchRecentPosts = async () => {
-        const res = await fetch(`${import.meta.env.VITE_POST_SERVICE}/getposts?limit=3`);
+        const res = await fetch(
+          `${import.meta.env.VITE_POST_SERVICE}/getposts?limit=3`
+        );
         const data = await res.json();
         if (res.ok) {
           setRecentPosts(data.posts);
@@ -78,10 +84,17 @@ export default function PostPage() {
         navigate("/sign-in");
         return;
       }
-      const res = await fetch(`${import.meta.env.VITE_POST_SERVICE}/likePost/${postId}`, {
-        method: "PUT",
-        credentials: "include",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_POST_SERVICE}/likePost/${postId}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (res.ok) {
         const data = await res.json();
         setPost({
@@ -103,13 +116,17 @@ export default function PostPage() {
         {
           method: "DELETE",
           credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       const data = await res.json();
       if (!res.ok) {
         console.log(data.message);
       } else {
-        navigate("/")
+        navigate("/");
       }
     } catch (error) {
       console.log(error.message);
@@ -132,7 +149,10 @@ export default function PostPage() {
           <button className="w-full text-white bg-gray-700 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-md text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
             <Link to={`/update-post/${post._id}`}>Update your post</Link>
           </button>
-          <button onClick={() => setShowModal(true)} className="w-full text-white bg-red-700 hover:bg-red-900 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-md text-sm px-5 py-2.5 me-2 mb-2">
+          <button
+            onClick={() => setShowModal(true)}
+            className="w-full text-white bg-red-700 hover:bg-red-900 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-md text-sm px-5 py-2.5 me-2 mb-2"
+          >
             Delete your post
           </button>
         </div>

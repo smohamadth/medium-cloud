@@ -94,7 +94,6 @@ export default function DashProfile() {
     };
 
     run();
-    
   };
 
   const handleChange = (e) => {
@@ -121,6 +120,7 @@ export default function DashProfile() {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           credentials: "include",
           body: JSON.stringify(formData),
@@ -148,6 +148,9 @@ export default function DashProfile() {
         {
           method: "DELETE",
           credentials: "include",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       const data = await res.json();

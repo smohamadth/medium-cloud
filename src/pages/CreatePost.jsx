@@ -30,9 +30,8 @@ export default function CreatePost() {
         accessKeyId: "90b1c029-f133-48b6-b32b-cae706163a12",
         secretAccessKey:
           "2a352d2de205073a01ef07fd1ab4f92ee612d703d892151c7dae4075a5daeb0b",
-      }
+      },
     });
-
 
     const fileName = new Date().getTime() + file.name;
     const uploadParams = {
@@ -61,41 +60,16 @@ export default function CreatePost() {
         const data = await s3.send(new PutObjectCommand(uploadParams));
         setImageUploadProgress(100);
         //console.log("Success", data);
-        setFormData({ ...formData, image: `https://s3.ir-thr-at1.arvanstorage.ir/${uploadParams.Bucket}/${fileName}` });
+        setFormData({
+          ...formData,
+          image: `https://s3.ir-thr-at1.arvanstorage.ir/${uploadParams.Bucket}/${fileName}`,
+        });
       } catch (err) {
         console.log("Error", err);
       }
     };
 
     run();
-
-    /*
-    const img_data = new FormData();
-    img_data.append("file", file);
-    img_data.append("upload_preset", "react-medium");
-    img_data.append("cloud_name", "dsbs49gce");
-
-    try {
-      setImageUploadProgress(0);
-      const res = await fetch(
-        "https://api.cloudinary.com/v1_1/dsbs49gce/image/upload",
-        {
-          method: "POST",
-          body: img_data,
-        }
-      );
-
-      const result = await res.json();
-      setFormData({ ...formData, image: result.secure_url });
-      setImageUploadProgress(100);
-      console.log("Image uploaded:", result.secure_url);
-    } catch (err) {
-      setImageUploadError(
-        "Could not upload image (File must be less than 2MB)"
-      );
-      setImageUploadProgress(null);
-    }
-    */
   };
 
   const handleSubmit = async (e) => {
@@ -105,8 +79,8 @@ export default function CreatePost() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
-        credentials: "include",
         body: JSON.stringify(formData),
       });
       const data = await res.json();

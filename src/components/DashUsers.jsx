@@ -16,7 +16,9 @@ export default function DashUsers() {
         const res = await fetch(
           `${import.meta.env.VITE_USER_SERVICE}/getusers`,
           {
-            credentials: "include",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
         const data = await res.json();
@@ -43,7 +45,10 @@ export default function DashUsers() {
           import.meta.env.VITE_USER_SERVICE
         }/getusers?startIndex=${startIndex}`,
         {
-          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       const data = await res.json();
@@ -63,7 +68,10 @@ export default function DashUsers() {
       const res = await fetch(
         `${import.meta.env.VITE_USER_SERVICE}/delete/${userIdToDelete}`,
         {
-          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
           method: "DELETE",
         }
       );
