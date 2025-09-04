@@ -93,7 +93,7 @@ export default function Home() {
             {posts && posts.length > 0 && (
               <div className="flex flex-col gap-6">
                 <h2 className="text-2xl font-semibold text-center">
-                  Recent Posts
+                  Marketing
                 </h2>
                 <div className="flex flex-wrap gap-3">
                   {posts.map((post) => (
@@ -107,7 +107,7 @@ export default function Home() {
             {posts && posts.length > 0 && (
               <div className="flex flex-col gap-6">
                 <h2 className="text-2xl font-semibold text-center">
-                  Recent Posts
+                  Programming
                 </h2>
                 <div className="flex flex-wrap gap-3">
                   {posts.map((post) => (
@@ -121,7 +121,7 @@ export default function Home() {
             {posts && posts.length > 0 && (
               <div className="flex flex-col gap-6">
                 <h2 className="text-2xl font-semibold text-center">
-                  Recent Posts
+                  Sports
                 </h2>
                 <div className="flex flex-wrap gap-3">
                   {posts.map((post) => (
