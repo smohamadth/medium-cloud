@@ -123,7 +123,6 @@ export default function DashProfile() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          credentials: "include",
           body: JSON.stringify(formData),
         }
       );

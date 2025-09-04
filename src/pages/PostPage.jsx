@@ -114,10 +114,9 @@ export default function PostPage() {
     try {
       const token = localStorage.getItem("token")
       const res = await fetch(
-        `/api/post/deletepost/${post._id}/${currentUser._id}`,
+        `${import.meta.env.VITE_POST_SERVICE}/deletepost/${post._id}/${currentUser._id}`,
         {
           method: "DELETE",
-          credentials: "include",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
